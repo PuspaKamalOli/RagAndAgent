@@ -1,56 +1,50 @@
 RagAndAgent
-RagAndAgent is a collection of AI-driven applications leveraging LangChain and Phidata for text summarization, Retrieval-Augmented Generation (RAG), and multimodal content analysis. The project includes a Streamlit-based web application for analyzing videos, audio, PDFs, and YouTube links, as well as LangChain scripts for summarization, RAG, and API services using Groq and Ollama models.
+Overview
+RagAndAgent is a versatile AI project combining LangChain for text summarization and Retrieval-Augmented Generation (RAG) with a Streamlit-based multimodal AI agent for analyzing videos, audio, PDFs, and YouTube links. The project leverages models like Groq, Ollama, and Google’s Gemini, along with tools such as FAISS, HuggingFace embeddings, and Phidata, to provide robust text and multimedia processing capabilities. It supports applications like content summarization, question answering, and contextual analysis, with LangSmith integration for tracing.
+Features
+
+Text summarization and RAG pipelines using Groq and Ollama models.
+Multimodal analysis of videos, audio, PDFs, and YouTube links with Phidata and Gemini.
+FastAPI service for exposing summarization endpoints.
+Streamlit web interfaces for interactive query answering and file analysis.
+Support for FAISS vector stores and HuggingFace embeddings.
+Audio transcription (via openai-whisper) and PDF text extraction (via PyPDF2).
+YouTube video analysis with transcript extraction and web research (DuckDuckGo).
+
 Project Structure
 RagAndAgent/
 ├── langchain/
-│   ├── LangserveForApi.py              # FastAPI service for text summarization using Groq
-│   ├── mcp.py                          # RAG pipeline with Groq and FAISS using MCP
-│   ├── RAG.py                          # RAG pipeline with Ollama and FAISS for text analysis
-│   ├── simpleSummarizerWithGroqAndLangsmit.py  # Simple text summarization with Groq and LangSmith
-│   └── simpleSummarizerWithOllamaStreamlitAndLangsmit.py  # Streamlit app for text queries with Ollama
+│   ├── LangserveForApi.py              # FastAPI service for text summarization (Groq)
+│   ├── mcp.py                          # RAG with Groq and FAISS (MCP-enabled)
+│   ├── RAG.py                          # RAG with Ollama and FAISS for text files
+│   ├── simpleSummarizerWithGroqAndLangsmit.py  # Text summarization with Groq and LangSmith
+│   └── simpleSummarizerWithOllamaStreamlitAndLangsmit.py  # Streamlit app for queries (Ollama)
 ├── video_summarizer_with_phidata/
-│   ├── app.py                          # Streamlit app for multimodal analysis (video, audio, PDF, YouTube)
+│   ├── app.py                          # Streamlit app for multimodal analysis
 │   └── requirements.txt                # Project dependencies
 ├── .env                                # Environment variables (not tracked)
 ├── .gitignore                          # Git ignore file
-└── agent/                              # Virtual environment
+├── agent/                              # Virtual environment
+└── README.md                           # This file
 
-Components
-
-LangChain Subfolder:
-
-LangserveForApi.py: A FastAPI service exposing a text summarization endpoint using Groq (LLaMA3-8b).
-mcp.py: A RAG pipeline with Groq (DeepSeek-Coder:7b) and FAISS, using Memory-Augmented Context Prompting (MCP).
-RAG.py: A RAG pipeline with Ollama (LLaMA3.2:1b) and FAISS for analyzing text files (e.g., speech.txt).
-simpleSummarizerWithGroqAndLangsmit.py: A script for summarizing text in 5 points using Groq and LangSmith tracing.
-simpleSummarizerWithOllamaStreamlitAndLangsmit.py: A Streamlit app for answering user queries with Ollama and LangSmith.
-
-
-Video Summarizer with Phidata:
-
-app.py: A Streamlit web app that analyzes uploaded videos, audio, PDFs, or YouTube links using Phidata’s agent framework, Google’s Gemini model, and tools like DuckDuckGo and YouTubeTools. Supports PDF text extraction with PyPDF2 and audio transcription (requires openai-whisper).
-
-
-
-Prerequisites
+Requirements
 
 Python 3.8+
 Git
-ffmpeg (for audio transcription in the Streamlit app)
-Windows: Install via choco install ffmpeg (with Chocolatey) or download from FFmpeg.
-macOS: brew install ffmpeg
+ffmpeg (for audio transcription in app.py)
+API keys for Google, Groq, and LangSmith
+
+Install dependencies:
+pip install -r video_summarizer_with_phidata/requirements.txt
+
+Install ffmpeg:
+
 Linux: sudo apt-get install ffmpeg
+macOS: brew install ffmpeg
+Windows: Use choco install ffmpeg (with Chocolatey) or download from FFmpeg
 Verify: ffmpeg -version
 
-
-API keys:
-Google API key (for Gemini in app.py)
-Groq API key (for LangChain scripts)
-LangSmith API key (for tracing in LangChain scripts)
-
-
-
-Setup
+Installation
 
 Clone the Repository:
 git clone <repository-url>
@@ -66,21 +60,13 @@ agent\Scripts\activate     # Windows
 Install Dependencies:
 pip install -r video_summarizer_with_phidata/requirements.txt
 
-Note: The requirements.txt includes dependencies for both subfolders:
-
-langchain_groq, langchain_community, langchain_core, langchain-ollama
-streamlit, fastapi, uvicorn, langserve
-sentence-transformers, faiss-cpu, pydantic
-phidata, google-generativeai, duckduckgo-search, youtube-transcript-api, py2pdf
-whisper (ensure openai-whisper is installed)
-
 
 Install openai-whisper for Audio Transcription:
-pip uninstall whisper  # Remove any conflicting whisper package
+pip uninstall whisper  # Remove conflicting packages
 pip install openai-whisper
 
 
-Create a .env File:Copy video_summarizer_with_phidata/.env.example (if provided) to .env in the root directory and fill in your API keys:
+Configure Environment Variables:Create a .env file in the root directory with the following:
 GOOGLE_API_KEY=your_google_api_key
 GROQ_API_KEY=your_groq_api_key
 LANGSMITH_API_KEY=your_langsmith_api_key
@@ -88,17 +74,13 @@ LANGCHAIN_API_KEY=your_langchain_api_key
 LANGCHAIN_TRACING_V2=true
 LANGCHAIN_PROJECT=your_project_name
 
-The .env file is excluded from version control via .gitignore.
-
-Verify ffmpeg:Ensure ffmpeg is installed and accessible:
-ffmpeg -version
+Note: The .env file is excluded from version control via .gitignore.
 
 
-
-Running the Applications
+Usage
 1. Multimodal Streamlit App (video_summarizer_with_phidata/app.py)
 
-Purpose: Analyze uploaded videos, audio, PDFs, or YouTube links with Phidata and Gemini.
+Purpose: Analyze videos, audio, PDFs, or YouTube links using Phidata and Gemini.
 Run:cd video_summarizer_with_phidata
 streamlit run app.py
 
@@ -106,31 +88,31 @@ streamlit run app.py
 Usage:
 Open http://localhost:8501 in your browser.
 Upload a file (.mp4, .mov, .avi, .mp3, .wav, .pdf) or enter a YouTube link.
-Enter a query (e.g., “Summarize the video” or “What are the lyrics?”).
-Click “Analyze” to view results.
+Enter a query (e.g., “Summarize the video” or “Extract lyrics from the audio”).
+Click “Analyze” to view the response.
 
 
 Notes:
-Audio transcription requires openai-whisper and ffmpeg.
-PDF analysis uses PyPDF2 for text extraction.
-YouTube analysis uses YouTubeTools and DuckDuckGo for web research.
+Requires GOOGLE_API_KEY for Gemini.
+Audio transcription uses openai-whisper and ffmpeg.
+PDFs are processed with PyPDF2; YouTube links use YouTubeTools and DuckDuckGo.
 
 
 
 2. LangChain Scripts (langchain/)
 a. FastAPI Summarization Service (LangserveForApi.py)
 
-Purpose: Expose a text summarization endpoint using Groq (LLaMA3-8b).
+Purpose: Expose a text summarization API using Groq (LLaMA3-8b).
 Run:cd langchain
 python LangserveForApi.py
 
 
 Usage:
 Access http://localhost:8000/docs for the FastAPI Swagger UI.
-Use the /summarizer endpoint to summarize text.
+Send POST requests to /summarizer with text to summarize.
 
 
-Notes: Requires GROQ_API_KEY in .env.
+Notes: Requires GROQ_API_KEY.
 
 b. RAG with MCP (mcp.py)
 
@@ -139,14 +121,14 @@ Run:cd langchain
 python mcp.py
 
 
-Usage: Outputs the answer to “What is LangChain used for?” based on the FAISS index.
+Usage: Outputs the answer to “What is LangChain used for?” using a FAISS index.
 Notes:
 Requires a pre-existing faiss_index/ directory.
-Ensure GROQ_API_KEY is set.
+Set GROQ_API_KEY.
 
 
 
-c. R'inc'AG Pipeline (RAG.py)
+c. RAG Pipeline (RAG.py)
 
 Purpose: Analyze text files (e.g., speech.txt) using Ollama (LLaMA3.2:1b) and FAISS.
 Run:cd langchain
@@ -155,14 +137,14 @@ python RAG.py
 
 Usage: Outputs the answer to “What is the speech about?” based on speech.txt.
 Notes:
-Requires speech.txt in the specified path (update the path in the script).
-Uses Ollama locally; ensure it’s running (ollama serve).
+Update the file path in RAG.py to your speech.txt location.
+Requires Ollama running (ollama serve).
 
 
 
-d. Simple Summarizer with Groq (simpleSummarizerWithGroqAndLangsmit.py)
+d. Simple Summarizer (simpleSummarizerWithGroqAndLangsmit.py)
 
-Purpose: Summarize text in 5 points using Groq and LangSmith tracing.
+Purpose: Summarize text in 5 points using Groq and LangSmith.
 Run:cd langchain
 python simpleSummarizerWithGroqAndLangsmit.py
 
@@ -170,20 +152,39 @@ python simpleSummarizerWithGroqAndLangsmit.py
 Usage: Outputs a summary of hardcoded text.
 Notes: Requires GROQ_API_KEY and LANGSMITH_API_KEY.
 
-e. Streamlit Query App with Ollama (simpleSummarizerWithOllamaStreamlitAndLangsmit.py)
+e. Streamlit Query App (simpleSummarizerWithOllamaStreamlitAndLangsmit.py)
 
-Purpose: Answer user queries via a Streamlit interface using Ollama.
+Purpose: Answer queries via a Streamlit interface using Ollama.
 Run:cd langchain
 streamlit run simpleSummarizerWithOllamaStreamlitAndLangsmit.py
 
 
 Usage:
 Open http://localhost:8501.
-Enter a query (e.g., “What is AI?”).
+Enter a query (e.g., “Explain RAG”).
 View the response.
 
 
-Notes: Requires Ollama running locally (ollama serve) and LANGSMITH_API_KEY.
+Notes: Requires Ollama (ollama serve) and LANGSMITH_API_KEY.
+
+Configuration
+
+Environment Variables: Configure API keys and LangSmith settings in .env (see Installation).
+Ollama: Ensure the Ollama server is running for RAG.py and simpleSummarizerWithOllamaStreamlitAndLangsmit.py:ollama serve
+
+
+FAISS Index: For mcp.py, generate a faiss_index/ directory if missing (see Troubleshooting).
+Text Files: Update the path to speech.txt in RAG.py to match your file location.
+
+Models
+
+Streamlit App: Uses Google’s Gemini (gemini-2.0-flash-exp) for multimodal analysis.
+LangChain Scripts:
+Groq: LLaMA3-8b (LangserveForApi.py, simpleSummarizerWithGroqAndLangsmit.py), DeepSeek-Coder:7b (mcp.py).
+Ollama: LLaMA3.2:1b (RAG.py, simpleSummarizerWithOllamaStreamlitAndLangsmit.py).
+
+
+Embeddings: HuggingFace (sentence-transformers/all-MiniLM-L6-v2) and Ollama (LLaMA3.2:1b).
 
 Troubleshooting
 Whisper Error (module 'whisper' has no attribute 'load_model')
@@ -193,8 +194,8 @@ Fix:pip uninstall whisper
 pip install openai-whisper
 
 
-Ensure ffmpeg is installed (see Prerequisites).
-Test Whisper:import whisper
+Ensure ffmpeg is installed (see Requirements).
+Test:import whisper
 model = whisper.load_model("base")
 print(model)
 
@@ -204,13 +205,13 @@ print(model)
 
 Missing speech.txt in RAG.py
 
-Update the file path in RAG.py to point to your text file:loader = TextLoader("path/to/speech.txt")
+Update the path in RAG.py:loader = TextLoader("path/to/speech.txt")
 
 
 
 FAISS Index Missing in mcp.py
 
-Generate the faiss_index/ directory by running a script to create and save the index:from langchain.vectorstores import FAISS
+Generate the index:from langchain.vectorstores import FAISS
 from langchain.embeddings import HuggingFaceEmbeddings
 embedding = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 # Assume documents is a list of LangChain documents
@@ -221,24 +222,30 @@ vectorstore.save_local("faiss_index")
 
 API Key Errors
 
-Ensure all required keys are in .env (see Setup).
-If keys are missing, obtain them from:
-Google Cloud Console (for GOOGLE_API_KEY)
-Groq Console (for GROQ_API_KEY)
-LangSmith Dashboard (for LANGSMITH_API_KEY, LANGCHAIN_API_KEY)
+Verify .env contains all required keys (see Installation).
+Obtain keys from:
+Google Cloud Console (GOOGLE_API_KEY)
+Groq Console (GROQ_API_KEY)
+LangSmith Dashboard (LANGSMITH_API_KEY, LANGCHAIN_API_KEY)
 
 
 
 Contributing
 
-Fork the repository and create a pull request with your changes.
-Ensure code follows PEP 8 style guidelines.
-Add tests for new features.
+Fork the repository and submit pull requests.
+Follow PEP 8 style guidelines.
+Add tests for new features or scripts.
 
 License
-This project is licensed under the MIT License. See the LICENSE file for details (if applicable).
+This project is licensed under the MIT License. See the LICENSE file for details (if included).
 Acknowledgments
 
-Built with LangChain, Phidata, Streamlit, and FastAPI.
-Thanks to Groq, Ollama, and Google for providing AI models and APIs.
+LangChain for text processing and RAG pipelines.
+Phidata for multimodal agent framework.
+Streamlit and FastAPI for web and API interfaces.
+Groq, Ollama, and Google for AI models.
+HuggingFace for embeddings.
+Speechocean762 dataset for inspiration (not used directly).
 
+Contact
+For issues or suggestions, open an issue on GitHub or contact <your-email> (replace with your email).
