@@ -1,0 +1,129 @@
+# Python-specific
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment variables and secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Streamlit-specific
+.streamlit/
+*.log
+
+# Temporary files from multimodal Streamlit app
+tmp/
+agent_storage.db
+*.mp4
+*.mov
+*.avi
+*.mp3
+*.wav
+*.pdf
+
+# LangChain-specific
+faiss_index/
+chroma/
+*.txt  # Exclude local text files like speech.txt (adjust if you want to include specific ones)
+*.pdf  # Exclude local PDFs (adjust if you want to include specific ones)
+
+# Ollama model caches
+ollama/
+*.bin
+*.gguf
+
+# LangSmith tracing and logs
+langchain_logs/
+*.trace
+*.log
+
+# Dependency management
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Testing and coverage
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Miscellaneous
+*.bak
+*.backup
+*.tmp
+*.temp
+profile_default/
+ipython_config.py
+*.pid
+*.seed
+*.pid.lock
+*.db  # General database files
+*.sqlite
+*.sqlite3
+*.lock
+*.out
+*.bak
+*.swp
+*.swo
+*.swn
+*.swo
+
+# Large model files and caches
+*.h5
+*.pt
+*.pth
+*.onnx
+model_cache/
+transformers_cache/
+huggingface/
+.cache/
