@@ -238,4 +238,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 - [Speechocean762](https://www.openslr.org/101/) dataset for inspiration (not used directly).
 
 ## Contact
-For issues or suggestions, open an issue on GitHub or contact `<your-email>` (replace with your email).
+For issues or suggestions, open an issue on GitHub or contact `olicodes12@gmail.com`.
